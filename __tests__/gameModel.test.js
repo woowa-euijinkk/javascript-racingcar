@@ -1,9 +1,9 @@
 import { GameModel } from '../src/gameModel';
-import { InputValidator } from '../src/InputValidator';
+import { GameInputValidationRules } from '../src/constants/ValidationRules.js';
 
 describe('게임 도메인 테스트', () => {
   describe('이름 입력', () => {
-    it(`1자 이상 ${InputValidator.MAX_NAME_LENGTH}자 이하로 입력 가능하다`, () => {
+    it(`1자 이상 ${GameInputValidationRules.NAME.MAX_LENGTH}자 이하로 입력 가능하다`, () => {
       const gameModel = new GameModel();
 
       const nameInput = 'A,B,C,D';
@@ -11,10 +11,10 @@ describe('게임 도메인 테스트', () => {
       expect(names).toHaveLength(4);
     });
 
-    it(`${InputValidator.MAX_NAME_LENGTH}자 초과한 이름을 입력할 수 없다`, () => {
+    it(`${GameInputValidationRules.NAME.MAX_LENGTH}자 초과한 이름을 입력할 수 없다`, () => {
       const gameModel = new GameModel();
 
-      const nameOver5 = 'A'.repeat(InputValidator.MAX_NAME_LENGTH + 1);
+      const nameOver5 = 'A'.repeat(GameInputValidationRules.NAME.MAX_LENGTH + 1);
       expect(() => gameModel.parseCarNames(nameOver5)).toThrow();
     });
 
