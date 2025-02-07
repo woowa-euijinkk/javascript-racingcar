@@ -1,4 +1,4 @@
-export class GameProcessor {
+export class GameController {
   constructor(model, view) {
     this.model = model;
     this.view = view;
@@ -45,7 +45,7 @@ export class GameProcessor {
 
     for (let i = 0; i < count; i++) {
       this.model.playRound();
-      this.view.displayRoundStatus(this.model.getCars());
+      this.view.displayRoundStatus(this.model.getRoundStatus());
     }
   }
 }
