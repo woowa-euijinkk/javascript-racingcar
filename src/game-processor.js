@@ -1,16 +1,12 @@
-import { Car } from './car';
-import { getRandomNumber } from './utils/getRandomNumber';
-import { isEmptryOrNil } from './utils/parse';
-import { readLineAsync } from './utils/readLineAsync';
+import { Car } from './car.js';
+import { getRandomNumber } from './utils/getRandomNumber.js';
+import { isEmptryOrNil } from './utils/parse.js';
 
 export class GameProcessor {
-  static READ_NAME_MESSAGE = '경주할 자동차 이름을 입력하세요(이름은 쉼표 (,)를 기준으로 구분) ';
   static EMPTY_NAME_ERROR = '이름을 제대로 입력하세요';
-  static NAME_INPUT_SEPARATOR = ',';
   static MAX_NAME_LENGTH = 5;
   static MAX_NAME_LENGTH_ERROR = `이름은 ${GameProcessor.MAX_NAME_LENGTH}자 이하로 입력 가능합니다.`;
 
-  static READ_COUNT_MESSAGE = '시도할 횟수는 몇 회인가요?';
   static INVALID_COUNT_ERROR = '시도 횟수는 숫자여야 합니다';
 
   static MOVE_NUMBERS = {
@@ -20,6 +16,9 @@ export class GameProcessor {
   };
 
   cars = [];
+  constructor(view) {
+    this.view = view;
+  }
 
   async startGame() {
     const names = await this.readCarNames();
@@ -27,18 +26,19 @@ export class GameProcessor {
     const count = await this.readTryCount();
 
     this.playRounds(names, count);
-    this.displayWinner();
+    const winners = this.getWinners();
+    this.view.displayWinners(winners);
   }
 
   async readTryCount() {
     while (true) {
       try {
-        const countInput = await readLineAsync(GameProcessor.READ_COUNT_MESSAGE);
+        const countInput = await this.view.readTryCount();
         const count = this.parseCount(countInput);
-        console.log(count);
+        this.view.displayGameCount(count);
         return count;
       } catch (e) {
-        console.log(e.message);
+        this.view.showError(e.message);
       }
     }
   }
@@ -46,12 +46,12 @@ export class GameProcessor {
   async readCarNames() {
     while (true) {
       try {
-        const nameInput = await readLineAsync(GameProcessor.READ_NAME_MESSAGE);
+        const nameInput = await this.view.readCarNames();
         const names = this.parseCarNames(nameInput);
-        console.log(`${names.join(', ')}`);
+        this.view.displayCarNames(names);
         return names;
       } catch (e) {
-        console.log(e.message);
+        this.view.showError(e.message);
       }
     }
   }
@@ -65,7 +65,7 @@ export class GameProcessor {
   }
 
   parseCarNames(names) {
-    return names.split(GameProcessor.NAME_INPUT_SEPARATOR).reduce((acc, name) => {
+    return names.split(',').reduce((acc, name) => {
       const trimmedName = name.trim();
 
       if (trimmedName.length > GameProcessor.MAX_NAME_LENGTH) {
@@ -108,30 +108,13 @@ export class GameProcessor {
           car.moveForward();
         }
       });
-      this.displayRoundStatus();
-      console.log('');
+      this.view.displayRoundStatus(this.cars);
     }
-  }
-
-  displayRoundStatus() {
-    this.cars.forEach((car) => {
-      this.displayCarStatus(car);
-    });
-  }
-
-  displayCarStatus(car) {
-    console.log(`${car.name} : ${`-`.repeat(car.progress)}`);
   }
 
   getWinners() {
     const max = this.calculateMaxProgress();
     return this.cars.filter((car) => car.progress === max);
-  }
-
-  displayWinner() {
-    const winners = this.getWinners();
-
-    console.log(`최종 우승자 : ${winners.map((w) => w.name).join(', ')}`);
   }
 
   calculateMaxProgress() {
