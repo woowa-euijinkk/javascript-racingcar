@@ -54,34 +54,6 @@ describe('게임 도메인 테스트', () => {
   });
 
   describe('게임 진행', () => {
-    describe('자동차 이동', () => {
-      it(`${GameModel.MOVE_NUMBERS.CRITERIA} 이상의 숫자가 부여되면 자동차는 전진한다.`, () => {
-        const gameModel = new GameModel({
-          randomNumberGenerator: () => GameModel.MOVE_NUMBERS.CRITERIA,
-        });
-
-        const CAR_NAME = 'Test';
-        gameModel.generateCar(CAR_NAME);
-        gameModel.playRound();
-
-        const car = gameModel.getCarByName(CAR_NAME);
-        expect(car.getPosition()).toBe(1);
-      });
-
-      it(`${GameModel.MOVE_NUMBERS.CRITERIA} 미만의 숫자가 부여되면 자동차는 전진하지 않는다.`, () => {
-        const gameModel = new GameModel({
-          randomNumberGenerator: () => GameModel.MOVE_NUMBERS.CRITERIA - 1,
-        });
-
-        const CAR_NAME = 'Test';
-        gameModel.generateCar(CAR_NAME);
-        gameModel.playRound();
-
-        const car = gameModel.getCarByName(CAR_NAME);
-        expect(car.getPosition()).toBe(0);
-      });
-    });
-
     describe('우승자 결정', () => {
       let gameModel;
       let moveCar;

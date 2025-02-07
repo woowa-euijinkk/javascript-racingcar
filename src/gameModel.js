@@ -2,23 +2,19 @@ import { Car } from './car.js';
 import { getRandomNumber } from './utils/getRandomNumber.js';
 import { isEmptryOrNil } from './utils/parse.js';
 import { InputValidator } from './InputValidator.js';
+import { GameRules } from './GameRules.js';
 
 export class GameModel {
-  static MOVE_NUMBERS = {
-    START: 0,
-    END: 9,
-    CRITERIA: 4,
-  };
 
   #cars = [];
-
   #inputValidator;
+  #gameRules;
 
   constructor({
     randomNumberGenerator = getRandomNumber,
     inputValidator = new InputValidator(),
   } = {}) {
-    this.randomNumberGenerator = randomNumberGenerator;
+    this.#gameRules = new GameRules(randomNumberGenerator);
     this.#inputValidator = inputValidator;
   }
 
@@ -56,12 +52,8 @@ export class GameModel {
   }
 
   playRound() {
-    this.#cars.map((car) => {
-      const randomNumber = this.randomNumberGenerator(
-        GameModel.MOVE_NUMBERS.START,
-        GameModel.MOVE_NUMBERS.END,
-      );
-      if (randomNumber >= GameModel.MOVE_NUMBERS.CRITERIA) {
+    this.#cars.forEach((car) => {
+      if (this.#gameRules.shouldMove()) {
         car.moveForward();
       }
     });
