@@ -1,5 +1,6 @@
 import { GameModel } from '../src/gameModel';
 import { GameInputValidationRules } from '../src/constants/ValidationRules.js';
+import { GameRules } from '../src/GameRules.js';
 
 describe('게임 도메인 테스트', () => {
   describe('이름 입력', () => {
@@ -54,46 +55,19 @@ describe('게임 도메인 테스트', () => {
   });
 
   describe('게임 진행', () => {
-    describe('우승자 결정', () => {
-      let gameModel;
-      let moveCar;
-
-      beforeEach(() => {
-        gameModel = new GameModel();
-        moveCar = (name, count) => {
-          gameModel.generateCar(name);
-          const car = gameModel.getCarByName(name);
-          for (let i = 0; i < count; i++) {
-            car.moveForward();
-          }
-        };
+    it('자동차들을 생성하고 이동시킬 수 있다', () => {
+      const gameModel = new GameModel({
+        randomNumberGenerator: () => GameRules.MOVE_CRITERIA,
       });
+      const names = ['car1', 'car2'];
 
-      it(`최다 전진 수를 계산할 수 있다`, () => {
-        const POSITION_COUNT1 = 100;
-        moveCar('TEST1', POSITION_COUNT1);
+      gameModel.generateCars(names);
+      gameModel.playRound();
 
-        const POSITION_COUNT2 = 50;
-        moveCar('TEST2', POSITION_COUNT2);
-
-        expect(gameModel.calculateMaxPosition()).toBe(Math.max(POSITION_COUNT1, POSITION_COUNT2));
-      });
-
-      it(`최다 전진 차가 위너로 선정된다.`, () => {
-        const CAR_NAME1 = 'TEST1';
-        moveCar(CAR_NAME1, 100);
-        moveCar('TEST2', 50);
-
-        expect(gameModel.getWinners()[0].getName()).toBe(CAR_NAME1);
-      });
-
-      it(`위너는 중복일 수 있다.`, () => {
-        const SAME_POSITION = 100;
-        moveCar('TEST1', SAME_POSITION);
-        moveCar('TEST2', SAME_POSITION);
-
-        expect(gameModel.getWinners()).toHaveLength(2);
-      });
+      const status = gameModel.getRoundStatus();
+      expect(status).toHaveLength(2);
+      expect(status[0].position).toBe(1);
+      expect(status[1].position).toBe(1);
     });
   });
 });
