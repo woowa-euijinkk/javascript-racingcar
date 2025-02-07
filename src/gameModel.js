@@ -6,6 +6,7 @@ export class GameModel {
   static EMPTY_NAME_ERROR = '이름을 제대로 입력하세요';
   static MAX_NAME_LENGTH = 5;
   static MAX_NAME_LENGTH_ERROR = `이름은 ${GameModel.MAX_NAME_LENGTH}자 이하로 입력 가능합니다.`;
+  static NEGATIVE_NUMBER_ERROR = `시도 횟수는 1 이상이어야 합니다.`;
   static INVALID_COUNT_ERROR = '시도 횟수는 숫자여야 합니다';
 
   static MOVE_NUMBERS = {
@@ -16,8 +17,15 @@ export class GameModel {
 
   cars = [];
 
+  constructor({ randomNumberGenerator = getRandomNumber } = {}) {
+    this.randomNumberGenerator = randomNumberGenerator;
+  }
+
   parseCount(count) {
     const parsedInt = parseInt(count);
+    if (parsedInt < 1) {
+      throw new Error(GameModel.NEGATIVE_NUMBER_ERROR);
+    }
     if (isNaN(parsedInt)) {
       throw new Error(GameModel.INVALID_COUNT_ERROR);
     }
@@ -45,13 +53,13 @@ export class GameModel {
   }
 
   generateCar(name) {
-    return new Car(name);
+    const car = new Car(name);
+    this.cars.push(car);
   }
 
   generateCars(names) {
     names.forEach((name) => {
       const car = this.generateCar(name);
-      this.cars.push(car);
     });
   }
 
@@ -59,9 +67,13 @@ export class GameModel {
     return this.cars;
   }
 
+  getCarByName(name) {
+    return this.cars.find((car) => car.getName() === name);
+  }
+
   playRound() {
     this.cars.map((car) => {
-      const randomNumber = getRandomNumber(
+      const randomNumber = this.randomNumberGenerator(
         GameModel.MOVE_NUMBERS.START,
         GameModel.MOVE_NUMBERS.END,
       );
