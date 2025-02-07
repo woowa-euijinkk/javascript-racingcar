@@ -15,7 +15,7 @@ export class GameModel {
     CRITERIA: 4,
   };
 
-  cars = [];
+  #cars = [];
 
   constructor({ randomNumberGenerator = getRandomNumber } = {}) {
     this.randomNumberGenerator = randomNumberGenerator;
@@ -54,7 +54,7 @@ export class GameModel {
 
   generateCar(name) {
     const car = new Car(name);
-    this.cars.push(car);
+    this.#cars.push(car);
   }
 
   generateCars(names) {
@@ -64,18 +64,18 @@ export class GameModel {
   }
 
   getRoundStatus() {
-    return this.cars.map((car) => ({
-      name: car.name,
+    return this.#cars.map((car) => ({
+      name: car.getName(),
       position: car.getPosition(),
     }));
   }
 
   getCarByName(name) {
-    return this.cars.find((car) => car.getName() === name);
+    return this.#cars.find((car) => car.getName() === name);
   }
 
   playRound() {
-    this.cars.map((car) => {
+    this.#cars.map((car) => {
       const randomNumber = this.randomNumberGenerator(
         GameModel.MOVE_NUMBERS.START,
         GameModel.MOVE_NUMBERS.END,
@@ -88,11 +88,11 @@ export class GameModel {
 
   getWinners() {
     const max = this.calculateMaxPosition();
-    return this.cars.filter((car) => car.getPosition() === max);
+    return this.#cars.filter((car) => car.getPosition() === max);
   }
 
   calculateMaxPosition() {
-    return this.cars.reduce((max, car) => {
+    return this.#cars.reduce((max, car) => {
       return Math.max(max, car.getPosition());
     }, 0);
   }

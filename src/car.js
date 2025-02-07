@@ -1,20 +1,20 @@
 export class Car {
-  position = 0;
-  name = '';
+  #position = 0;
+  #name = '';
 
   constructor(name) {
-    this.name = name;
+    this.#name = name;
   }
 
   moveForward() {
-    this.position = this.position + 1;
+    this.#position = this.#position + 1;
   }
 
   getName() {
-    return this.name;
+    return this.#name;
   }
 
   getPosition() {
-    return this.position;
+    return this.#position;
   }
 }
