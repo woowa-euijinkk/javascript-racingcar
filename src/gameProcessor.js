@@ -6,7 +6,6 @@ export class GameProcessor {
   static EMPTY_NAME_ERROR = '이름을 제대로 입력하세요';
   static MAX_NAME_LENGTH = 5;
   static MAX_NAME_LENGTH_ERROR = `이름은 ${GameProcessor.MAX_NAME_LENGTH}자 이하로 입력 가능합니다.`;
-
   static INVALID_COUNT_ERROR = '시도 횟수는 숫자여야 합니다';
 
   static MOVE_NUMBERS = {

@@ -1,4 +1,3 @@
-import { GameProcessor } from './game-processor.js';
 import { readLineAsync } from './utils/readLineAsync.js';
 
 export class GameView {
