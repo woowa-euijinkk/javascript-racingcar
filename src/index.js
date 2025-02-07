@@ -1,7 +1,12 @@
 import { GameModel } from './gameModel.js';
 import { GameController } from './GameController.js';
-import { GameView } from './GameView.js';
+import { InputView } from './InputView.js';
+import { OutputView } from './OutputView.js';
 
-const gameController = new GameController(new GameModel(), new GameView());
+const gameController = new GameController(
+  new GameModel(),
+  new InputView(),
+  new OutputView(),
+);
 
 gameController.startGame();
