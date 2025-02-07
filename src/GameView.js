@@ -22,7 +22,7 @@ export class GameView {
     console.log(count);
   }
 
-  showError(message) {
+  displayError(message) {
     console.log(message);
   }
 

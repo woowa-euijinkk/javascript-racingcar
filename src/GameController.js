@@ -22,7 +22,7 @@ export class GameController {
         this.view.displayGameCount(count);
         return count;
       } catch (e) {
-        this.view.showError(e.message);
+        this.view.displayError(e.message);
       }
     }
   }
@@ -35,7 +35,7 @@ export class GameController {
         this.view.displayCarNames(names);
         return names;
       } catch (e) {
-        this.view.showError(e.message);
+        this.view.displayError(e.message);
       }
     }
   }

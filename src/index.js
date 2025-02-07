@@ -1,7 +1,7 @@
 import { GameModel } from './gameModel.js';
-import { GameProcessor } from './gameProcessor.js';
+import { GameController } from './GameController.js';
 import { GameView } from './GameView.js';
 
-const gameProcessor = new GameProcessor(new GameModel(), new GameView());
+const gameController = new GameController(new GameModel(), new GameView());
 
-gameProcessor.startGame();
+gameController.startGame();
