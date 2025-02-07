@@ -14,7 +14,7 @@ export class Car {
     return this.name;
   }
 
-  getCount() {
+  getProgress() {
     return this.progress;
   }
 }
