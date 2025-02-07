@@ -64,7 +64,7 @@ describe('게임 도메인 테스트', () => {
         gameModel.playRound();
 
         const car = gameModel.getCarByName(CAR_NAME);
-        expect(car.getProgress()).toBe(1);
+        expect(car.getPosition()).toBe(1);
       });
 
       it(`${GameModel.MOVE_NUMBERS.CRITERIA} 미만의 숫자가 부여되면 자동차는 전진하지 않는다.`, () => {
@@ -77,7 +77,7 @@ describe('게임 도메인 테스트', () => {
         gameModel.playRound();
 
         const car = gameModel.getCarByName(CAR_NAME);
-        expect(car.getProgress()).toBe(0);
+        expect(car.getPosition()).toBe(0);
       });
     });
 
@@ -97,13 +97,13 @@ describe('게임 도메인 테스트', () => {
       });
 
       it(`최다 전진 수를 계산할 수 있다`, () => {
-        const PROGRESS_COUNT1 = 100;
-        moveCar('TEST1', PROGRESS_COUNT1);
+        const POSITION_COUNT1 = 100;
+        moveCar('TEST1', POSITION_COUNT1);
 
-        const PROGRESS_COUNT2 = 50;
-        moveCar('TEST2', PROGRESS_COUNT2);
+        const POSITION_COUNT2 = 50;
+        moveCar('TEST2', POSITION_COUNT2);
 
-        expect(gameModel.calculateMaxProgress()).toBe(Math.max(PROGRESS_COUNT1, PROGRESS_COUNT2));
+        expect(gameModel.calculateMaxPosition()).toBe(Math.max(POSITION_COUNT1, POSITION_COUNT2));
       });
 
       it(`최다 전진 차가 위너로 선정된다.`, () => {
@@ -115,9 +115,9 @@ describe('게임 도메인 테스트', () => {
       });
 
       it(`위너는 중복일 수 있다.`, () => {
-        const SAME_PROGRESS = 100;
-        moveCar('TEST1', SAME_PROGRESS);
-        moveCar('TEST2', SAME_PROGRESS);
+        const SAME_POSITION = 100;
+        moveCar('TEST1', SAME_POSITION);
+        moveCar('TEST2', SAME_POSITION);
 
         expect(gameModel.getWinners()).toHaveLength(2);
       });

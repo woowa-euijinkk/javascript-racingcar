@@ -84,13 +84,13 @@ export class GameModel {
   }
 
   getWinners() {
-    const max = this.calculateMaxProgress();
-    return this.cars.filter((car) => car.progress === max);
+    const max = this.calculateMaxPosition();
+    return this.cars.filter((car) => car.position === max);
   }
 
-  calculateMaxProgress() {
+  calculateMaxPosition() {
     return this.cars.reduce((max, car) => {
-      return Math.max(max, car.progress);
+      return Math.max(max, car.position);
     }, 0);
   }
 }

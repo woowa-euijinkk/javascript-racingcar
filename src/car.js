@@ -1,5 +1,5 @@
 export class Car {
-  progress = 0;
+  position = 0;
   name = '';
 
   constructor(name) {
@@ -7,14 +7,14 @@ export class Car {
   }
 
   moveForward() {
-    this.progress = this.progress + 1;
+    this.position = this.position + 1;
   }
 
   getName() {
     return this.name;
   }
 
-  getProgress() {
-    return this.progress;
+  getPosition() {
+    return this.position;
   }
 }

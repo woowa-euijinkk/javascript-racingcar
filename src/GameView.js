@@ -34,7 +34,7 @@ export class GameView {
   }
 
   displayCarStatus(car) {
-    console.log(`${car.name} : ${`-`.repeat(car.progress)}`);
+    console.log(`${car.name} : ${`-`.repeat(car.position)}`);
   }
 
   displayWinners(winners) {

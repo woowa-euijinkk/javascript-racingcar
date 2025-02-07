@@ -6,6 +6,6 @@ describe('Car 테스트', () => {
 
     car.moveForward();
 
-    expect(car.getProgress()).toBe(1);
+    expect(car.getPosition()).toBe(1);
   });
 });
