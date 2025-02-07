@@ -63,8 +63,11 @@ export class GameModel {
     });
   }
 
-  getCars() {
-    return this.cars;
+  getRoundStatus() {
+    return this.cars.map((car) => ({
+      name: car.name,
+      position: car.getPosition(),
+    }));
   }
 
   getCarByName(name) {
@@ -85,12 +88,12 @@ export class GameModel {
 
   getWinners() {
     const max = this.calculateMaxPosition();
-    return this.cars.filter((car) => car.position === max);
+    return this.cars.filter((car) => car.getPosition() === max);
   }
 
   calculateMaxPosition() {
     return this.cars.reduce((max, car) => {
-      return Math.max(max, car.position);
+      return Math.max(max, car.getPosition());
     }, 0);
   }
 }

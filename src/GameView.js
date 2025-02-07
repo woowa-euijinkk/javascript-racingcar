@@ -26,9 +26,9 @@ export class GameView {
     console.log(message);
   }
 
-  displayRoundStatus(cars) {
-    cars.forEach((car) => {
-      this.displayCarStatus(car);
+  displayRoundStatus(roundStatus) {
+    roundStatus.forEach((carStatus) => {
+      this.displayCarStatus(carStatus);
     });
     console.log('');
   }
