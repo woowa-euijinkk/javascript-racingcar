@@ -1,0 +1,94 @@
+# Logs
+logs
+# Project specific ignores
+.cache/
+test-results/
+
+# Local environment overrides
+.env.local.override.log
+npm-debug.log# Project specific ignores
+.cache/
+test-results/
+
+# Local environment overrides
+.env.local.override
+yarn-debug.log# Project specific ignores
+.cache/
+test-results/
+
+# Local environment overrides
+.env.local.override
+yarn-error.log# Project specific ignores
+.cache/
+test-results/
+
+# Local environment overrides
+.env.local.override
+pnpm-debug.log# Project specific ignores
+.cache/
+test-results/
+
+# Local environment overrides
+.env.local.override
+lerna-debug.log# Project specific ignores
+.cache/
+test-results/
+
+# Local environment overrides
+.env.local.override
+
+node_modules
+dist
+dist-ssr
+# Project specific ignores
+.cache/
+test-results/
+
+# Local environment overrides
+.env.local.override.local
+
+# Editor directories and files
+.vscode/# Project specific ignores
+.cache/
+test-results/
+
+# Local environment overrides
+.env.local.override
+!.vscode/extensions.json
+.idea
+.DS_Store
+# Project specific ignores
+.cache/
+test-results/
+
+# Local environment overrides
+.env.local.override.suo
+# Project specific ignores
+.cache/
+test-results/
+
+# Local environment overrides
+.env.local.override.ntvs# Project specific ignores
+.cache/
+test-results/
+
+# Local environment overrides
+.env.local.override
+# Project specific ignores
+.cache/
+test-results/
+
+# Local environment overrides
+.env.local.override.njsproj
+# Project specific ignores
+.cache/
+test-results/
+
+# Local environment overrides
+.env.local.override.sln
+# Project specific ignores
+.cache/
+test-results/
+
+# Local environment overrides
+.env.local.override.sw?
